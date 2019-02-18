@@ -157,7 +157,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>title: CART算法理论与实践<br>date: 2018-2-14<br>tags: 决策树、CART、sklearn</p>
+        <h1 id="CART算法理论与实践"><a href="#CART算法理论与实践" class="headerlink" title="CART算法理论与实践"></a>CART算法理论与实践</h1><blockquote>
+<p>2018-2-14<br>决策树、CART、sklearn</p>
+</blockquote>
 <p>用于分类和回归的树统称为决策树，决策树算法主要由特征选择、生成及剪枝组成。ID3、C4.5和CART算法是决策树的三种主流生成算法，这次分析中用到的是CART算法。<br>输入随机变量X，CART将给出随机变量Y的条件概率分布。CART对样本的每个特征进行二分，将特征空间划分为有限个单元，在每个单元上确定预测的概率分布。CART仅应用于二分类任务，在多分类任务中，通常将多分类任务拆分为多个二分类任务，对每个二分类任务训练一个分类器，测试时，对多个分类器的预测结果进行集成以获得最终的多分类结果。</p>
 <h3 id="CART树的生成"><a href="#CART树的生成" class="headerlink" title="CART树的生成"></a>CART树的生成</h3><h5 id="1-Classifer"><a href="#1-Classifer" class="headerlink" title="1. Classifer"></a>1. Classifer</h5><p>节点分裂准则：基尼指数(Gini index)最小化</p>
 <blockquote>
