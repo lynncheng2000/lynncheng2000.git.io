@@ -6,15 +6,27 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2019/2 | LynnCheng&#39;s Blog</title>
+  <title>Fast R-CNN 论文笔记 | LynnCheng&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LynnCheng&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/2019/02/index.html">
+  <meta name="description" content="创新点在介绍Fast R-CNN的创新点之前，我们先来介绍一下它的爸爸：R-CNN 存在的不足：  Multiple-stage pipeline：训练分为多个阶段，region proposals、ConvNet、SVM、BB Regression。  训练耗时，占有磁盘空间大。卷积出来的特征数据还要保持至本地磁盘。  重复计算，目标检测速度慢。通过selective search 提取近200">
+<meta name="keywords" content="文章,深度学习,论文笔记">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Fast R-CNN 论文笔记">
+<meta property="og:url" content="http://yoursite.com/2018/10/18/Fast-RCNN论文笔记/index.html">
 <meta property="og:site_name" content="LynnCheng&#39;s Blog">
+<meta property="og:description" content="创新点在介绍Fast R-CNN的创新点之前，我们先来介绍一下它的爸爸：R-CNN 存在的不足：  Multiple-stage pipeline：训练分为多个阶段，region proposals、ConvNet、SVM、BB Regression。  训练耗时，占有磁盘空间大。卷积出来的特征数据还要保持至本地磁盘。  重复计算，目标检测速度慢。通过selective search 提取近200">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://img-blog.csdn.net/20180119150020632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGFucmFuMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
+<meta property="og:image" content="https://deepsense.ai/wp-content/uploads/2017/02/1.jpg">
+<meta property="og:image" content="https://deepsense.ai/wp-content/uploads/2017/02/2.jpg">
+<meta property="og:image" content="https://deepsense.ai/wp-content/uploads/2017/02/3.jpg">
+<meta property="og:image" content="https://deepsense.ai/wp-content/uploads/2017/02/output.jpg">
+<meta property="og:image" content="https://deepsense.ai/wp-content/uploads/2017/02/roi_pooling-1.gif">
+<meta property="og:updated_time" content="2019-02-18T09:26:24.290Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LynnCheng&#39;s Blog">
+<meta name="twitter:title" content="Fast R-CNN 论文笔记">
+<meta name="twitter:description" content="创新点在介绍Fast R-CNN的创新点之前，我们先来介绍一下它的爸爸：R-CNN 存在的不足：  Multiple-stage pipeline：训练分为多个阶段，region proposals、ConvNet、SVM、BB Regression。  训练耗时，占有磁盘空间大。卷积出来的特征数据还要保持至本地磁盘。  重复计算，目标检测速度慢。通过selective search 提取近200">
+<meta name="twitter:image" content="https://img-blog.csdn.net/20180119150020632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGFucmFuMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast">
   
     <link rel="alternative" href="/atom.xml" title="LynnCheng&#39;s Blog" type="application/atom+xml">
   
@@ -142,74 +154,119 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-Fast-RCNN论文笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/18/铳梦/" class="archive-article-date">
-  	<time datetime="2019-02-18T08:40:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/18/铳梦/">铳梦</a>
+    <h1 class="article-title" itemprop="name">
+      Fast R-CNN 论文笔记
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂感</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/14/CART/" class="archive-article-date">
-  	<time datetime="2019-02-14T08:07:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-14</time>
+        
+        <a href="/2018/10/18/Fast-RCNN论文笔记/" class="archive-article-date">
+  	<time datetime="2018-10-18T07:28:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-18</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/14/CART/">CART算法理论与slearn决策树类库</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a>创新点</h1><p>在介绍Fast R-CNN的创新点之前，我们先来介绍一下它的爸爸：<a href="https://blog.csdn.net/amusi1994/article/details/81081023" target="_blank" rel="noopener">R-CNN</a> 存在的不足：</p>
+<ol>
+<li><p>Multiple-stage pipeline：训练分为多个阶段，region proposals、ConvNet、SVM、BB Regression。</p>
+</li>
+<li><p>训练耗时，占有磁盘空间大。卷积出来的特征数据还要保持至本地磁盘。</p>
+</li>
+<li><p>重复计算，目标检测速度慢。通过selective search 提取近2000左右的候选框，即今2000个ROI，RCNN对每个ROI，都跑一遍CNN，计算量很大，而且其实这些ROI之间是有overlap，显然有大量计算是重复的。（所以SPP-Net和Fast-RCNN对其进行改进）</p>
+</li>
+</ol>
+<p>简单来说，最大的问题就是速度慢！”深度学习”范儿也不足。于是R-CNN原作者 Ross Girshick就进一步提出了R-CNN的改进版：Fast R-CNN。</p>
+<p>但更准确来说，Fast R-CNN是基于R-CNN和<a href="https://arxiv.org/abs/1406.4729" target="_blank" rel="noopener">SPPnets</a>进行的改进。SPPnets，其创新点在于计算整幅图像的the shared feature map，然后根据object proposal在shared feature map上映射到对应的feature vector（就是不用重复计算feature map了）。当然，SPPnets也有缺点：和R-CNN一样，训练是多阶段（multiple-stage pipeline）的，速度还是不够”快”，特征还要保存到本地磁盘中。</p>
+<p>Fast R-CNN创新点</p>
+<ol>
+<li>只对整幅图像进行一次特征提取，避免R-CNN中的冗余特征提取</li>
+<li>用RoI pooling层替换最后一层的max pooling层，同时引入建议框数据，提取相应建议框特征</li>
+<li>Fast R-CNN网络末尾采用并行的不同的全连接层，可同时输出分类结果和窗口回归结果，实现了end-to-end的多任务训练【建议框提取除外】，也不需要额外的特征存储空间【R-CNN中的特征需要保持到本地，来供SVM和Bounding-box regression进行训练】</li>
+<li>采用SVD对Fast R-CNN网络末尾并行的全连接层进行分解，减少计算复杂度，加快检测速度。</li>
+</ol>
+<a id="more"></a>
+<p>拥有上述4个创新点，那么Fast R-CNN究竟得到哪些优势呢？</p>
+<p>Fast R-CNN 优势</p>
+<ol>
+<li>比R-CNN和SPPnets更高的检测质量（mAP）</li>
+<li>Single stage training</li>
+<li>训练可以更新所有网络层</li>
+<li>减少内存资源。不需要将特征保存至本地磁盘</li>
+</ol>
+<h1 id="RoI-Pooling层详解"><a href="#RoI-Pooling层详解" class="headerlink" title="RoI Pooling层详解"></a>RoI Pooling层详解</h1><p>RoI Pooling 是Pooling层的一种，而且是针对RoI的Pooling，其特点是输入特征图尺寸不固定，但是输出特征图尺寸固定（如7x7）。</p>
+<p>什么是ROI呢？</p>
+<p>ROI是Region of Interest的简写，一般是指图像上的区域框，但这里指的是由Selective Search提取的候选框”；</p>
+<p><img src="https://img-blog.csdn.net/20180119150020632?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvbGFucmFuMg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="Fast R-CNN architecture"></p>
+<p>往往经过rpn后输出的不止一个矩形框，所以这里我们是对多个ROI进行Pooling。</p>
+<h2 id="RoI-Pooling的输入"><a href="#RoI-Pooling的输入" class="headerlink" title="RoI Pooling的输入"></a>RoI Pooling的输入</h2><p>输入有两部分组成： </p>
+<ol>
+<li><p>特征图（feature map）：指的是上面所示的特征图，在Fast RCNN中，它位于RoI Pooling之前，在Faster RCNN中，它是与RPN共享那个特征图，通常我们常常称之为“share_conv”； </p>
+</li>
+<li><p>RoIs，其表示所有RoI的N*5的矩阵。其中N表示RoI的数量，第一列表示图像index，其余四列表示其余的左上角和右下角坐标。</p>
+</li>
+</ol>
+<p>在Fast RCNN中，指的是Selective Search的输出；在Faster RCNN中指的是RPN的输出，一堆矩形候选框，形状为1x5x1x1（4个坐标+索引index），其中值得注意的是：坐标的参考系不是针对feature map这张图的，而是针对原图的（神经网络最开始的输入）。其实关于ROI的坐标理解一直很混乱，到底是根据谁的坐标来。其实很好理解，我们已知原图的大小和由Selective Search算法提取的候选框坐标，那么根据”映射关系”可以得出特征图（featurwe map）的大小和候选框在feature map上的映射坐标。至于如何计算，其实就是比值问题，下面会介绍。所以这里把ROI理解为原图上各个候选框（region proposals），也是可以的。</p>
+<p>注：说句题外话，由Selective Search算法提取的一系列可能含有object的boudning box，这些通常称为region proposals或者region of interest（ROI）。</p>
+<h2 id="RoI的具体操作"><a href="#RoI的具体操作" class="headerlink" title="RoI的具体操作"></a>RoI的具体操作</h2><ol>
+<li><p>根据输入image，将ROI映射到feature map对应位置</p>
+<p> 注：映射规则比较简单，就是把各个坐标除以“输入图片与feature map的大小的比值”，得到了feature map上的box坐标</p>
+</li>
+<li><p>将映射后的区域划分为相同大小的sections（sections数量与输出的维度相同）</p>
+</li>
+<li><p>对每个sections进行max pooling操作</p>
+</li>
+</ol>
+<p>这样我们就可以从不同大小的方框得到固定大小的相应 的feature maps。值得一提的是，输出的feature maps的大小不取决于ROI和卷积feature maps大小。ROI pooling 最大的好处就在于极大地提高了处理速度。</p>
+<h2 id="RoI-Pooling的输出"><a href="#RoI-Pooling的输出" class="headerlink" title="RoI Pooling的输出"></a>RoI Pooling的输出</h2><p>输出是batch个vector，其中batch的值等于RoI的个数，vector的大小为channel <em> w </em> h；RoI Pooling的过程就是将一个个大小不同的box矩形框，都映射成大小固定（w * h）的矩形框；</p>
+<h2 id="ROI-Pooling示例"><a href="#ROI-Pooling示例" class="headerlink" title="ROI Pooling示例"></a>ROI Pooling示例</h2><p><img src="https://deepsense.ai/wp-content/uploads/2017/02/1.jpg" alt></p>
+<p><img src="https://deepsense.ai/wp-content/uploads/2017/02/2.jpg" alt></p>
+<p><img src="https://deepsense.ai/wp-content/uploads/2017/02/3.jpg" alt></p>
+<p><img src="https://deepsense.ai/wp-content/uploads/2017/02/output.jpg" alt></p>
+<p><img src="https://deepsense.ai/wp-content/uploads/2017/02/roi_pooling-1.gif" alt></p>
+<h2 id="RoI总结"><a href="#RoI总结" class="headerlink" title="RoI总结"></a>RoI总结</h2><ol>
+<li>用于目标检测任务</li>
+<li>允许我们对CNN中的feature map进行reuse</li>
+<li>可以显著加速training和testing速度</li>
+<li>允许end-to-end的形式训练目标检测系统</li>
+</ol>
+<p>参考：</p>
+<ul>
+<li><p><a href="https://deepsense.ai/region-of-interest-pooling-explained/" target="_blank" rel="noopener">Region of interest pooling explained</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/lanran2/article/details/60143861/" target="_blank" rel="noopener">RoI pooling层解析</a></p>
+</li>
+<li><p><a href="https://blog.csdn.net/auto1993/article/details/78514071" target="_blank" rel="noopener">RoI Pooling层详解</a></p>
+</li>
+<li><p><a href="https://github.com/rbgirshick/caffe-fast-rcnn/blob/bcd9b4eadc7d8fbc433aeefd564e82ec63aaf69c/src/caffe/layers/roi_pooling_layer.cu" target="_blank" rel="noopener">RoI Pooling Layer in Caffe</a></p>
+</li>
+<li><p><a href="https://github.com/deepsense-ai/roi-pooling" target="_blank" rel="noopener">RoI Pooling Layer in TensorFlow</a></p>
+</li>
+</ul>
+<p>推荐阅读</p>
+<ul>
+<li><p><a href="https://blog.csdn.net/wopawn/article/details/52463853" target="_blank" rel="noopener">（推荐）Fast R-CNN论文详解</a></p>
+</li>
+<li><p><a href="http://blog.csdn.net/linj_m/article/details/48930179" target="_blank" rel="noopener">Fast-RCNN解析：训练阶段代码导读</a></p>
+</li>
+<li><p><a href="https://deepsense.ai/region-of-interest-pooling-explained/" target="_blank" rel="noopener">Region of interest pooling explained</a></p>
+</li>
+</ul>
 
-        <div class="article-info info-on-right">
-          
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -219,33 +276,133 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">决策树</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">sklearn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">论文笔记</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2018/10/18/Fast-RCNN论文笔记/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+    <a href="/2018/12/20/希望之花/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          希望之花
+        
+      </div>
+    </a>
   
   
-    </div></section>
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#创新点"><span class="toc-number">1.</span> <span class="toc-text">创新点</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#RoI-Pooling层详解"><span class="toc-number">2.</span> <span class="toc-text">RoI Pooling层详解</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#RoI-Pooling的输入"><span class="toc-number">2.1.</span> <span class="toc-text">RoI Pooling的输入</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RoI的具体操作"><span class="toc-number">2.2.</span> <span class="toc-text">RoI的具体操作</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RoI-Pooling的输出"><span class="toc-number">2.3.</span> <span class="toc-text">RoI Pooling的输出</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#ROI-Pooling示例"><span class="toc-number">2.4.</span> <span class="toc-text">ROI Pooling示例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RoI总结"><span class="toc-number">2.5.</span> <span class="toc-text">RoI总结</span></a></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
+  
+  
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -268,8 +425,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
