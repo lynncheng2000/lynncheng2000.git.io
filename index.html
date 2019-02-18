@@ -152,35 +152,129 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-CART" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/16/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/16/hello-world/" class="archive-article-date">
-  	<time datetime="2019-02-16T08:45:11.078Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-16</time>
-</a>
-        
-      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+        <h1 id="CART算法理论与实践"><a href="#CART算法理论与实践" class="headerlink" title="CART算法理论与实践"></a>CART算法理论与实践</h1><p>用于分类和回归的树统称为决策树，决策树算法主要由特征选择、生成及剪枝组成。ID3、C4.5和CART算法是决策树的三种主流生成算法，这次分析中用到的是CART算法。<br>输入随机变量X，CART将给出随机变量Y的条件概率分布。CART对样本的每个特征进行二分，将特征空间划分为有限个单元，在每个单元上确定预测的概率分布。CART仅应用于二分类任务，在多分类任务中，通常将多分类任务拆分为多个二分类任务，对每个二分类任务训练一个分类器，测试时，对多个分类器的预测结果进行集成以获得最终的多分类结果。</p>
+<h3 id="CART树的生成"><a href="#CART树的生成" class="headerlink" title="CART树的生成"></a>CART树的生成</h3><h5 id="1-Classifer"><a href="#1-Classifer" class="headerlink" title="1. Classifer"></a>1. Classifer</h5><p>节点分裂准则：基尼指数(Gini index)最小化</p>
+<blockquote>
+<p>CART分类树用基尼指数选择最优特征，同时选择该特征的最优二值切分点。假设样本有K个类，样本点属于第k个类的概率为pk, 则定义该概率分布的基尼指数为：<br><img src="lynncheng2000.github.io/img/cart/gini-1.jpg" alt="avatar"><br>对给定的集合D，其基尼指数定义为<br><img src="lynncheng2000.github.io/img/cart//gini-2.jpg" alt="avatar"><br>其中，Ck是D中属于第k类的样本子集，K是类的总个数<br>如果数据集D根据特征A在某一取值a上进行分割，得到D1,D2两部分后，那么在特征A下集合D的基尼系数如下所示。其中基尼系数Gini(D)表示集合D的不确定性，基尼系数Gini(D,A)表示A=a分割后集合D的不确定性。基尼指数越大，样本集合的不确定性越大。<br><img src="lynncheng2000.github.io/img/cart/gini-3.jpg" alt="avatar"></p>
+</blockquote>
+<p>CART生成算法如下：<br>输入：训练数据集D，停止条件（样本集基尼指数小于阈值/没有更多特征/节点中样本数小于阈值等）<br>输出：CART分类树<br>step1: 对训练集D中每个特征A，对其所有可能取值a，依据”A=a”判定结果将D划分为D1，D2两部分，计算此时的基尼指数。<br>step2: 对所有的特征A和切分点a，选择基尼指数最小的特征和切分点，从现节点生成两个子节点，将样本依据特征分配到两个子节点中<br>step3: 递归，直至满足停止条件，输出CART分类树</p>
+<h5 id="2-Regressor"><a href="#2-Regressor" class="headerlink" title="2. Regressor"></a>2. Regressor</h5><p>节点分裂准则：平方误差最小化<br>CART回归树预测回归连续型数据，假设X与Y分别是输入和输出变量，并且Y是连续变量。在训练数据集所在的输入空间中，递归的将每个区域划分为两个子区域并决定每个子区域上的输出值，构建二叉决策树。<br>问题的关键在于如何对输入空间进行切分，方法是对每个变量和变量的每个可能取值，计算损失函数，遍历所有输入变量，找到使损失函数最小的变量和切分点作为分裂节点。损失函数定义为<br><img src="lynncheng2000.github.io/img/cart/regressiontree-1.jpg" alt="avatar"><br>其中Rm是被划分的输入空间，cm是空间Rm对应的固定输出值。这个损失函数实际上是将每个特征空间划分出的两部分分别计算预测值和观察值的残差平方和，找到了使损失函数最小的切分变量、切分点和每个区域对应的预测值也就确定了回归树的一个节点。<br>CART回归树生成算法如下：<br>输入：训练数据集D，停止条件<br>输出：回归树f(x)<br>step1: 选择最优切分变量j与切分点s：遍历变量j，对规定的切分变量j扫描切分点s，选择使下式得到最小值时的(j,s)对<br><img src="lynncheng2000.github.io/img/cart/regressiontree-1.jpg" alt="avatar"><br>step2: 用选定的(j,s)对，划分区域并决定相应的输出值<br><img src="lynncheng2000.github.io/img/cart/regressiontree-2.jpg" alt="avatar"><br>step3: 递归，直至满足停止条件，输出CART回归树</p>
+<h3 id="CART树的剪枝-复杂度剪枝算法"><a href="#CART树的剪枝-复杂度剪枝算法" class="headerlink" title="CART树的剪枝(复杂度剪枝算法)"></a>CART树的剪枝(复杂度剪枝算法)</h3><p>一颗充分生长的树称为T0，树的节点过多很可能会导致过拟合。但同时去掉一些节点后预测的误差可能会增大，那么如何达到这两个变量之间的平衡则是问题的关键。因此我们用一个变量α来平衡，定义损失函数如下<br><img src="lynncheng2000.github.io/img/cart/jianzhi-1.jpg" alt="avatar"><br>T为任意子树，|T|为子树T的叶子节点个数。<br>α是参数，用于惩罚拟合程度与树的复杂度，α越大，最优子树就越简单。<br>C(T)为预测误差，可以是平方误差也可以是基尼指数，C(T)衡量训练数据的拟合程度。<br>接下来的问题是如何搜索最优的复杂度α：<br>step1: 剪枝，形成一个子树序列<br>用递归的方法对树进行剪枝。由于可产生的子树的数目是有限的，我们可以产生一个总数为n的α的取值区间序列，每个区间对应的子树是嵌套的，即对于同一棵树的结点，alpha都是一样的，当alpha从0开始缓慢增大，总会有某棵子树该剪，其他子树不该剪的情况，这样随着alpha不断增大，不断地剪枝，就得到了n+1棵子树，具体的数学计算过程可参考李航《统计学习方法》5.5.2<br>step2: 在子树序列中通过交叉验证选区最优子树Tα<br>对指定的损失函数，对子树序列中的每个子树可以计算损失值，从而找到最优的子树Tα。</p>
+<h3 id="sklearn决策树算法类库"><a href="#sklearn决策树算法类库" class="headerlink" title="sklearn决策树算法类库"></a>sklearn决策树算法类库</h3><p>scikit-learn决策树算法类库内部实现是使用了调优过的CART树算法，既可以做分类，又可以做回归。分类决策树的类对应的是DecisionTreeClassifier，而回归决策树的类对应的是DecisionTreeRegressor。两者的参数定义几乎完全相同，但是意义不全相同。具体可见<a href="https://www.cnblogs.com/pinard/p/6056319.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/6056319.html</a></p>
+<p> DicisionTreeClassifier类原型</p>
+<pre><code>class sklearn.tree.DecisionTreeClassifier(criterion=’gini’, splitter=’best’, max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=None, random_state=None, max_leaf_nodes=None, min_impurity_decrease=0.0, min_impurity_split=None, class_weight=None, presort=False)
+</code></pre><p>DicisionTreeClassifier类属性</p>
+<table>
+<thead>
+<tr>
+<th>Attributes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>classes_</td>
+</tr>
+<tr>
+<td>feature_importances_</td>
+</tr>
+<tr>
+<td>max_features_</td>
+</tr>
+<tr>
+<td>n_classes_</td>
+</tr>
+<tr>
+<td>n_features_</td>
+</tr>
+<tr>
+<td>n_outputs_</td>
+</tr>
+<tr>
+<td>tree_</td>
+</tr>
+</tbody>
+</table>
+<p>DicisionTreeClassifier类方法</p>
+<table>
+<thead>
+<tr>
+<th>Methods</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>apply(X[, check_input])</td>
+<td>Returns the index of the leaf that each sample is predicted as.</td>
+</tr>
+<tr>
+<td>decision_path(X[, check_input])</td>
+<td>Return the decision path in the tree</td>
+</tr>
+<tr>
+<td>fit(X, y[, sample_weight, check_input, …])</td>
+<td>Build a decision tree classifier from the training set (X, y).</td>
+</tr>
+<tr>
+<td>get_params([deep])</td>
+<td>Get parameters for this estimator.</td>
+</tr>
+<tr>
+<td>predict(X[, check_input])</td>
+<td>Predict class or regression value for X.</td>
+</tr>
+<tr>
+<td>predict_log_proba(X)</td>
+<td>Predict class log-probabilities of the input samples X.</td>
+</tr>
+<tr>
+<td>predict_proba(X[, check_input])</td>
+<td>Predict class probabilities of the input samples X.</td>
+</tr>
+<tr>
+<td>score(X, y[, sample_weight])</td>
+<td>Returns the mean accuracy on the given test data and labels.</td>
+</tr>
+<tr>
+<td>set_params(**params)</td>
+<td>set the parameters of this estimator.</td>
+</tr>
+</tbody>
+</table>
+<p>以iris数据集为例，iris属性特征包括花萼长度、花萼宽度、花瓣长度、花瓣宽度，类别共三类，分别为Setosa、Versicolour、Virginca。</p>
+<pre><code>from sklearn.datasets import load_iris
+from sklearn import tree
+
+#load data
+iris=load_iris()
+X=iris.data
+y=iris.target
+clf=tree.DecisionTreeClassifier()
+clf=clf.fit(X,y)
+</code></pre><p>模型的保存和再使用</p>
+<pre><code>from sklearn.externals import joblib
+joblib.dump(clf, &quot;train_model.m&quot;) # 模型保存
+clf = joblib.load(&quot;train_model.m&quot;) # 模型载入
+</code></pre><h3 id="决策树可视化"><a href="#决策树可视化" class="headerlink" title="决策树可视化"></a>决策树可视化</h3><p>方法一：需要安装库graphviz</p>
+<pre><code>import graphviz
+dot_data=tree.export_graphviz(clf,out_file=None,
+                          feature_names=testset.drop(labels =[&apos;level&apos;],axis = 1).columns,
+                          class_names=&apos;level&apos;,
+                          filled=True,rounded=True,
+                          special_characters=True)
+graph=graphviz.Source(dot_data)
+graph.view()
+</code></pre><p>方法二：通过pydotplus生成pdf文件</p>
+<pre><code>import pydotplus 
+dot_data = tree.export_graphviz(clf, out_file=None) 
+graph = pydotplus.graph_from_dot_data(dot_data) 
+graph.write_pdf(&quot;iris.pdf&quot;)
+</code></pre><p>输出如下<br><img src="lynncheng2000.github.io/img/cart/graph-1.jpg" alt="avatar"></p>
 
       
 
@@ -193,7 +287,7 @@
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/02/16/hello-world/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/02/18/CART/">展开全文 >></a>
         </p>
       
 
