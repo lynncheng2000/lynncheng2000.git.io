@@ -16,19 +16,19 @@
 <meta property="og:site_name" content="LynnCheng&#39;s Blog">
 <meta property="og:description" content="用于分类和回归的树统称为决策树，决策树算法主要由特征选择、生成及剪枝组成。ID3、C4.5和CART算法是决策树的三种主流生成算法，这次分析中用到的是CART算法。输入随机变量X，CART将给出随机变量Y的条件概率分布。CART对样本的每个特征进行二分，将特征空间划分为有限个单元，在每个单元上确定预测的概率分布。CART仅应用于二分类任务，在多分类任务中，通常将多分类任务拆分为多个二分类任务，对每">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/gini-1.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart//gini-2.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/gini-3.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/regressiontree-1.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/regressiontree-1.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/regressiontree-2.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/jianzhi-1.jpg">
-<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/graph-1.jpg">
-<meta property="og:updated_time" content="2019-02-18T04:10:34.696Z">
+<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/cart/gini-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/cart/gini-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/cart/gini-3.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/cart/regressiontree-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/cart/regressiontree-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/cart/regressiontree-2.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/cart/jianzhi-1.jpg">
+<meta property="og:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/cart/graph-1.jpg">
+<meta property="og:updated_time" content="2019-02-18T06:34:40.052Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CART算法理论与slearn决策树类库">
 <meta name="twitter:description" content="用于分类和回归的树统称为决策树，决策树算法主要由特征选择、生成及剪枝组成。ID3、C4.5和CART算法是决策树的三种主流生成算法，这次分析中用到的是CART算法。输入随机变量X，CART将给出随机变量Y的条件概率分布。CART对样本的每个特征进行二分，将特征空间划分为有限个单元，在每个单元上确定预测的概率分布。CART仅应用于二分类任务，在多分类任务中，通常将多分类任务拆分为多个二分类任务，对每">
-<meta name="twitter:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/gini-1.jpg">
+<meta name="twitter:image" content="http://yoursite.com/2018/02/14/CART/lynncheng2000.github.io/img/cart/cart/gini-1.jpg">
   
     <link rel="alternative" href="/atom.xml" title="LynnCheng&#39;s Blog" type="application/atom+xml">
   
@@ -187,11 +187,11 @@
         <p>用于分类和回归的树统称为决策树，决策树算法主要由特征选择、生成及剪枝组成。ID3、C4.5和CART算法是决策树的三种主流生成算法，这次分析中用到的是CART算法。<br>输入随机变量X，CART将给出随机变量Y的条件概率分布。CART对样本的每个特征进行二分，将特征空间划分为有限个单元，在每个单元上确定预测的概率分布。CART仅应用于二分类任务，在多分类任务中，通常将多分类任务拆分为多个二分类任务，对每个二分类任务训练一个分类器，测试时，对多个分类器的预测结果进行集成以获得最终的多分类结果。</p>
 <h3 id="CART树的生成"><a href="#CART树的生成" class="headerlink" title="CART树的生成"></a>CART树的生成</h3><h5 id="1-Classifer"><a href="#1-Classifer" class="headerlink" title="1. Classifer"></a>1. Classifer</h5><p>节点分裂准则：基尼指数(Gini index)最小化</p>
 <blockquote>
-<p>CART分类树用基尼指数选择最优特征，同时选择该特征的最优二值切分点。假设样本有K个类，样本点属于第k个类的概率为pk, 则定义该概率分布的基尼指数为：<br><img src="lynncheng2000.github.io/img/cart/gini-1.jpg" alt="avatar"><br>对给定的集合D，其基尼指数定义为<br><img src="lynncheng2000.github.io/img/cart//gini-2.jpg" alt="avatar"><br>其中，Ck是D中属于第k类的样本子集，K是类的总个数<br>如果数据集D根据特征A在某一取值a上进行分割，得到D1,D2两部分后，那么在特征A下集合D的基尼系数如下所示。其中基尼系数Gini(D)表示集合D的不确定性，基尼系数Gini(D,A)表示A=a分割后集合D的不确定性。基尼指数越大，样本集合的不确定性越大。<br><img src="lynncheng2000.github.io/img/cart/gini-3.jpg" alt="avatar"></p>
+<p>CART分类树用基尼指数选择最优特征，同时选择该特征的最优二值切分点。假设样本有K个类，样本点属于第k个类的概率为pk, 则定义该概率分布的基尼指数为：<br><img src="lynncheng2000.github.io/img/cart/cart/gini-1.jpg" alt="avatar"><br>对给定的集合D，其基尼指数定义为<br><img src="lynncheng2000.github.io/img/cart/cart/gini-2.jpg" alt="avatar"><br>其中，Ck是D中属于第k类的样本子集，K是类的总个数<br>如果数据集D根据特征A在某一取值a上进行分割，得到D1,D2两部分后，那么在特征A下集合D的基尼系数如下所示。其中基尼系数Gini(D)表示集合D的不确定性，基尼系数Gini(D,A)表示A=a分割后集合D的不确定性。基尼指数越大，样本集合的不确定性越大。<br><img src="lynncheng2000.github.io/img/cart/cart/gini-3.jpg" alt="avatar"></p>
 </blockquote>
 <p>CART生成算法如下：<br>输入：训练数据集D，停止条件（样本集基尼指数小于阈值/没有更多特征/节点中样本数小于阈值等）<br>输出：CART分类树<br>step1: 对训练集D中每个特征A，对其所有可能取值a，依据”A=a”判定结果将D划分为D1，D2两部分，计算此时的基尼指数。<br>step2: 对所有的特征A和切分点a，选择基尼指数最小的特征和切分点，从现节点生成两个子节点，将样本依据特征分配到两个子节点中<br>step3: 递归，直至满足停止条件，输出CART分类树</p>
-<h5 id="2-Regressor"><a href="#2-Regressor" class="headerlink" title="2. Regressor"></a>2. Regressor</h5><p>节点分裂准则：平方误差最小化<br>CART回归树预测回归连续型数据，假设X与Y分别是输入和输出变量，并且Y是连续变量。在训练数据集所在的输入空间中，递归的将每个区域划分为两个子区域并决定每个子区域上的输出值，构建二叉决策树。<br>问题的关键在于如何对输入空间进行切分，方法是对每个变量和变量的每个可能取值，计算损失函数，遍历所有输入变量，找到使损失函数最小的变量和切分点作为分裂节点。损失函数定义为<br><img src="lynncheng2000.github.io/img/cart/regressiontree-1.jpg" alt="avatar"><br>其中Rm是被划分的输入空间，cm是空间Rm对应的固定输出值。这个损失函数实际上是将每个特征空间划分出的两部分分别计算预测值和观察值的残差平方和，找到了使损失函数最小的切分变量、切分点和每个区域对应的预测值也就确定了回归树的一个节点。<br>CART回归树生成算法如下：<br>输入：训练数据集D，停止条件<br>输出：回归树f(x)<br>step1: 选择最优切分变量j与切分点s：遍历变量j，对规定的切分变量j扫描切分点s，选择使下式得到最小值时的(j,s)对<br><img src="lynncheng2000.github.io/img/cart/regressiontree-1.jpg" alt="avatar"><br>step2: 用选定的(j,s)对，划分区域并决定相应的输出值<br><img src="lynncheng2000.github.io/img/cart/regressiontree-2.jpg" alt="avatar"><br>step3: 递归，直至满足停止条件，输出CART回归树</p>
-<h3 id="CART树的剪枝-复杂度剪枝算法"><a href="#CART树的剪枝-复杂度剪枝算法" class="headerlink" title="CART树的剪枝(复杂度剪枝算法)"></a>CART树的剪枝(复杂度剪枝算法)</h3><p>一颗充分生长的树称为T0，树的节点过多很可能会导致过拟合。但同时去掉一些节点后预测的误差可能会增大，那么如何达到这两个变量之间的平衡则是问题的关键。因此我们用一个变量α来平衡，定义损失函数如下<br><img src="lynncheng2000.github.io/img/cart/jianzhi-1.jpg" alt="avatar"><br>T为任意子树，|T|为子树T的叶子节点个数。<br>α是参数，用于惩罚拟合程度与树的复杂度，α越大，最优子树就越简单。<br>C(T)为预测误差，可以是平方误差也可以是基尼指数，C(T)衡量训练数据的拟合程度。<br>接下来的问题是如何搜索最优的复杂度α：<br>step1: 剪枝，形成一个子树序列<br>用递归的方法对树进行剪枝。由于可产生的子树的数目是有限的，我们可以产生一个总数为n的α的取值区间序列，每个区间对应的子树是嵌套的，即对于同一棵树的结点，alpha都是一样的，当alpha从0开始缓慢增大，总会有某棵子树该剪，其他子树不该剪的情况，这样随着alpha不断增大，不断地剪枝，就得到了n+1棵子树，具体的数学计算过程可参考李航《统计学习方法》5.5.2<br>step2: 在子树序列中通过交叉验证选区最优子树Tα<br>对指定的损失函数，对子树序列中的每个子树可以计算损失值，从而找到最优的子树Tα。</p>
+<h5 id="2-Regressor"><a href="#2-Regressor" class="headerlink" title="2. Regressor"></a>2. Regressor</h5><p>节点分裂准则：平方误差最小化<br>CART回归树预测回归连续型数据，假设X与Y分别是输入和输出变量，并且Y是连续变量。在训练数据集所在的输入空间中，递归的将每个区域划分为两个子区域并决定每个子区域上的输出值，构建二叉决策树。<br>问题的关键在于如何对输入空间进行切分，方法是对每个变量和变量的每个可能取值，计算损失函数，遍历所有输入变量，找到使损失函数最小的变量和切分点作为分裂节点。损失函数定义为<br><img src="lynncheng2000.github.io/img/cart/cart/regressiontree-1.jpg" alt="avatar"><br>其中Rm是被划分的输入空间，cm是空间Rm对应的固定输出值。这个损失函数实际上是将每个特征空间划分出的两部分分别计算预测值和观察值的残差平方和，找到了使损失函数最小的切分变量、切分点和每个区域对应的预测值也就确定了回归树的一个节点。<br>CART回归树生成算法如下：<br>输入：训练数据集D，停止条件<br>输出：回归树f(x)<br>step1: 选择最优切分变量j与切分点s：遍历变量j，对规定的切分变量j扫描切分点s，选择使下式得到最小值时的(j,s)对<br><img src="lynncheng2000.github.io/img/cart/cart/regressiontree-1.jpg" alt="avatar"><br>step2: 用选定的(j,s)对，划分区域并决定相应的输出值<br><img src="lynncheng2000.github.io/img/cart/cart/regressiontree-2.jpg" alt="avatar"><br>step3: 递归，直至满足停止条件，输出CART回归树</p>
+<h3 id="CART树的剪枝-复杂度剪枝算法"><a href="#CART树的剪枝-复杂度剪枝算法" class="headerlink" title="CART树的剪枝(复杂度剪枝算法)"></a>CART树的剪枝(复杂度剪枝算法)</h3><p>一颗充分生长的树称为T0，树的节点过多很可能会导致过拟合。但同时去掉一些节点后预测的误差可能会增大，那么如何达到这两个变量之间的平衡则是问题的关键。因此我们用一个变量α来平衡，定义损失函数如下<br><img src="lynncheng2000.github.io/img/cart/cart/jianzhi-1.jpg" alt="avatar"><br>T为任意子树，|T|为子树T的叶子节点个数。<br>α是参数，用于惩罚拟合程度与树的复杂度，α越大，最优子树就越简单。<br>C(T)为预测误差，可以是平方误差也可以是基尼指数，C(T)衡量训练数据的拟合程度。<br>接下来的问题是如何搜索最优的复杂度α：<br>step1: 剪枝，形成一个子树序列<br>用递归的方法对树进行剪枝。由于可产生的子树的数目是有限的，我们可以产生一个总数为n的α的取值区间序列，每个区间对应的子树是嵌套的，即对于同一棵树的结点，alpha都是一样的，当alpha从0开始缓慢增大，总会有某棵子树该剪，其他子树不该剪的情况，这样随着alpha不断增大，不断地剪枝，就得到了n+1棵子树，具体的数学计算过程可参考李航《统计学习方法》5.5.2<br>step2: 在子树序列中通过交叉验证选区最优子树Tα<br>对指定的损失函数，对子树序列中的每个子树可以计算损失值，从而找到最优的子树Tα。</p>
 <h3 id="sklearn决策树算法类库"><a href="#sklearn决策树算法类库" class="headerlink" title="sklearn决策树算法类库"></a>sklearn决策树算法类库</h3><p>scikit-learn决策树算法类库内部实现是使用了调优过的CART树算法，既可以做分类，又可以做回归。分类决策树的类对应的是DecisionTreeClassifier，而回归决策树的类对应的是DecisionTreeRegressor。两者的参数定义几乎完全相同，但是意义不全相同。具体可见<a href="https://www.cnblogs.com/pinard/p/6056319.html" target="_blank" rel="noopener">https://www.cnblogs.com/pinard/p/6056319.html</a></p>
 <p> DicisionTreeClassifier类原型</p>
 <pre><code>class sklearn.tree.DecisionTreeClassifier(criterion=’gini’, splitter=’best’, max_depth=None, min_samples_split=2, min_samples_leaf=1, min_weight_fraction_leaf=0.0, max_features=None, random_state=None, max_leaf_nodes=None, min_impurity_decrease=0.0, min_impurity_split=None, class_weight=None, presort=False)
@@ -301,7 +301,7 @@ graph.view()
 dot_data = tree.export_graphviz(clf, out_file=None) 
 graph = pydotplus.graph_from_dot_data(dot_data) 
 graph.write_pdf(&quot;iris.pdf&quot;)
-</code></pre><p>输出如下<br><img src="lynncheng2000.github.io/img/cart/graph-1.jpg" alt="avatar"></p>
+</code></pre><p>输出如下<br><img src="lynncheng2000.github.io/img/cart/cart/graph-1.jpg" alt="avatar"></p>
 
       
 
