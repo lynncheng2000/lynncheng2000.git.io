@@ -6,15 +6,24 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | LynnCheng&#39;s Blog</title>
+  <title>KNN算法笔记 | LynnCheng&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="LynnCheng&#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="KNN算法全名为k-Nearest Neighbor，就是K最近邻的意思。 KNN是一种分类算法，其基本思想是采用测量不同特征值之间的距离方法进行分类。           算法过程如下：          1、准备样本数据集（样本中每个数据都已经分好类，并具有分类标签）；2、使用样本数据进行训练；3、输入测试数据A；4、计算A与样本集的每一个数据之间的距离；5、按照距离递增次序排序；6、选取与A">
+<meta name="keywords" content="文章,监督学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="KNN算法笔记">
+<meta property="og:url" content="http://yoursite.com/2019/01/14/knn算法笔记/index.html">
 <meta property="og:site_name" content="LynnCheng&#39;s Blog">
+<meta property="og:description" content="KNN算法全名为k-Nearest Neighbor，就是K最近邻的意思。 KNN是一种分类算法，其基本思想是采用测量不同特征值之间的距离方法进行分类。           算法过程如下：          1、准备样本数据集（样本中每个数据都已经分好类，并具有分类标签）；2、使用样本数据进行训练；3、输入测试数据A；4、计算A与样本集的每一个数据之间的距离；5、按照距离递增次序排序；6、选取与A">
 <meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/knn算法笔记/images/20170616.1_knn_1.png">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/knn算法笔记/images/20170616.1_knn_2.jpg">
+<meta property="og:image" content="http://yoursite.com/2019/01/14/knn算法笔记/images/20170616.1_knn_3.jpg">
+<meta property="og:updated_time" content="2019-02-19T03:30:36.517Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="LynnCheng&#39;s Blog">
+<meta name="twitter:title" content="KNN算法笔记">
+<meta name="twitter:description" content="KNN算法全名为k-Nearest Neighbor，就是K最近邻的意思。 KNN是一种分类算法，其基本思想是采用测量不同特征值之间的距离方法进行分类。           算法过程如下：          1、准备样本数据集（样本中每个数据都已经分好类，并具有分类标签）；2、使用样本数据进行训练；3、输入测试数据A；4、计算A与样本集的每一个数据之间的距离；5、按照距离递增次序排序；6、选取与A">
+<meta name="twitter:image" content="http://yoursite.com/2019/01/14/knn算法笔记/images/20170616.1_knn_1.png">
   
     <link rel="alternative" href="/atom.xml" title="LynnCheng&#39;s Blog" type="application/atom+xml">
   
@@ -142,124 +151,136 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-knn算法笔记" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/18/铳梦/" class="archive-article-date">
-  	<time datetime="2019-02-18T08:40:38.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-18</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/18/铳梦/">铳梦</a>
+    <h1 class="article-title" itemprop="name">
+      KNN算法笔记
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂感</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/02/14/CART/" class="archive-article-date">
-  	<time datetime="2019-02-14T08:07:32.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-14</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/02/14/CART/">CART算法理论与slearn决策树类库</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文章</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">决策树</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">sklearn</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2019/01/14/knn算法笔记/" class="archive-article-date">
+        
+        <a href="/2019/01/14/knn算法笔记/" class="archive-article-date">
   	<time datetime="2019-01-14T03:13:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-01-14</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/01/14/knn算法笔记/">KNN算法笔记</a>
-    </h1>
-  
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>KNN算法全名为k-Nearest Neighbor，就是K最近邻的意思。</p>
+<p>KNN是一种分类算法，其基本思想是采用测量不同特征值之间的距离方法进行分类。          </p>
+<p>算法过程如下：         </p>
+<p>1、准备样本数据集（样本中每个数据都已经分好类，并具有分类标签）；<br>2、使用样本数据进行训练；<br>3、输入测试数据A；<br>4、计算A与样本集的每一个数据之间的距离；<br>5、按照距离递增次序排序；<br>6、选取与A距离最小的k个点；<br>7、计算前k个点所在类别的出现频率；<br>8、返回前k个点出现频率最高的类别作为A的预测分类。           </p>
+<a id="more"></a>
+<h3 id="主要因素"><a href="#主要因素" class="headerlink" title="主要因素"></a>主要因素</h3><h4 id="训练集（或样本数据）"><a href="#训练集（或样本数据）" class="headerlink" title="训练集（或样本数据）"></a>训练集（或样本数据）</h4><p>训练集太小会误判，训练集太大时对测试数据分类的系统开销会非常大。</p>
+<h4 id="距离（或相似的衡量算法）"><a href="#距离（或相似的衡量算法）" class="headerlink" title="距离（或相似的衡量算法）"></a>距离（或相似的衡量算法）</h4><p>什么是合适的距离衡量？距离越近应该意味着这两个点属于一个分类的可能性越大。</p>
+<p>距离衡量包括:</p>
+<p>1、欧氏距离</p>
+<p>欧几里得度量（euclidean metric）（也称欧氏距离）是一个通常采用的距离定义，指在m维空间中两个点之间的真实距离，或者向量的自然长度（即该点到原点的距离）。在二维和三维空间中的欧氏距离就是两点之间的实际距离。</p>
+<p>适用于空间问题。</p>
+<p>2、曼哈顿距离</p>
+<p>出租车几何或曼哈顿距离（Manhattan Distance）是由十九世纪的赫尔曼·闵可夫斯基所创词汇 ，是种使用在几何度量空间的几何学用语，用以标明两个点在标准坐标系上的绝对轴距总和。<br>曼哈顿距离是欧氏距离在欧几里得空间的固定直角坐标系上所形成的线段对轴产生的投影的距离总和。</p>
+<p><img src="/2019/01/14/knn算法笔记/images/20170616.1_knn_1.png" alt="20170616.1_knn_1.png"></p>
+<p>图中红线代表曼哈顿距离，绿色代表欧氏距离，也就是直线距离，而蓝色和黄色代表等价的曼哈顿距离。<br>曼哈顿距离——两点在南北方向上的距离加上在东西方向上的距离，即d（i，j）=|xi-xj|+|yi-yj|。</p>
+<p>适用于路径问题。</p>
+<p>3、切比雪夫距离</p>
+<p>在数学中，切比雪夫距离是向量空间中的一种度量，二个点之间的距离定义是其各坐标数值差绝对值的最大值。</p>
+<p>切比雪夫距离会用在计算法网格中两点之间的距离，比如：棋盘、仓储物流等应用。</p>
+<p>对一个网格，和一个点的切比雪夫距离为1的点为此点的Moore型邻居（英语：Moore neighborhood）。<br><img src="/2019/01/14/knn算法笔记/images/20170616.1_knn_2.jpg" alt="20170616.1_knn_2.jpg"></p>
+<p>使用于在网格中计算距离的问题。</p>
+<p>4、闵可夫斯基距离(Minkowski Distance)           </p>
+<p>闵氏距离不是一种距离，而是一组距离的定义。</p>
+<p>根据变参数的不同，闵氏距离可以表示一类的距离。</p>
+<p>其公式中有一个变参p：<br>当p=1时，是曼哈顿距离；<br>当p=2时，是欧氏距离；<br>当p→∞时，就是切比雪夫距离。            </p>
+<p>5、标准化欧氏距离 (Standardized Euclidean distance )</p>
+<p>标准化欧氏距离是针对简单欧氏距离的缺点而作的一种改进方案，可以看成是一种加权欧氏距离。</p>
+<p>标准欧氏距离的思路：<br>既然数据各维分量的分布不一样，那先将各个分量都“标准化”到均值、方差相等。</p>
+<p>6、马氏距离(Mahalanobis Distance)</p>
+<p>表示数据的协方差距离。</p>
+<p>它是一种有效的计算两个未知样本集的相似度的方法。</p>
+<p>量纲无关，可以排除变量之间的相关性的干扰。</p>
+<p>7、巴氏距离（Bhattacharyya Distance）<br>在统计学中，巴氏距离用于测量两离散概率分布。它常在分类中测量类之间的可分离性。</p>
+<p>8、汉明距离(Hamming distance)</p>
+<p>两个等长字符串s1与s2之间的汉明距离定义为将其中一个变为另外一个所需要作的最小替换次数。</p>
+<p>例如字符串“1111”与“1001”之间的汉明距离为2。</p>
+<p>应用：<br>信息编码（为了增强容错性，应使得编码间的最小汉明距离尽可能大）。</p>
+<p>9、夹角余弦(Cosine)</p>
+<p>几何中夹角余弦可用来衡量两个向量方向的差异，数据挖掘中可用来衡量样本向量之间的差异。</p>
+<p>10、杰卡德相似系数(Jaccard similarity coefficient)</p>
+<p>杰卡德距离用两个集合中不同元素占所有元素的比例来衡量两个集合的区分度。<br>可将杰卡德相似系数用在衡量样本的相似度上。</p>
+<p>11、皮尔森相关系数(Pearson Correlation Coefficient)</p>
+<p>皮尔森相关系数，也称皮尔森积矩相关系数(Pearson product-moment correlation coefficient) ，是一种线性相关系数。<br>皮尔森相关系数是用来反映两个变量线性相关程度的统计量。</p>
+<p>高维度对距离衡量的影响：<br>当变量数越多，欧式距离的区分能力就越差。</p>
+<p>变量值域对距离的影响：<br>值域越大的变量常常会在距离计算中占据主导作用，因此应先对变量进行标准化。</p>
+<h4 id="k的大小"><a href="#k的大小" class="headerlink" title="k的大小"></a>k的大小</h4><p>k太小，分类结果易受噪声点影响，误差会增大；<br>k太大，近邻中又可能包含太多的其它类别的点（对距离加权，可以降低k值设定的影响）；<br>k=N（样本数），则完全不足取，因为此时无论输入实例是什么，都只是简单的预测它属于在训练实例中最多的类，模型过于简单，忽略了训练实例中大量有用信息。            </p>
+<p>在实际应用中，K值一般取一个比较小的数值，例如采用交叉验证法（简单来说，就是一部分样本做训练集，一部分做测试集）来选择最优的K值。             </p>
+<p>经验规则：k一般低于训练样本数的平方根。      </p>
+<h3 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h3><p>1、优点<br>简单，易于理解，易于实现，精度高，对异常值不敏感。     </p>
+<p>2、缺点</p>
+<p>KNN是一种懒惰算法，构造模型很简单，但在对测试数据分类的系统开销大（计算量大，内存开销大），因为要扫描全部训练样本并计算距离。      </p>
+<h3 id="适用范围"><a href="#适用范围" class="headerlink" title="适用范围"></a>适用范围</h3><p>数值型和标称型（具有有穷多个不同值,值之间无序）。<br>比如客户流失预测、欺诈侦测等。</p>
+<h2 id="算法实现"><a href="#算法实现" class="headerlink" title="算法实现"></a>算法实现</h2><p>这里以python为例描述下基于欧氏距离的KNN算法实现。</p>
+<p>欧氏距离公式：</p>
+<p><img src="/2019/01/14/knn算法笔记/images/20170616.1_knn_3.jpg" alt="20170616.1_knn_3.jpg">      </p>
+<p>以欧氏距离为例的示例代码：</p>
+<pre><code>#! /usr/bin/env python
+#-*- coding:utf-8 -*-
 
-        <div class="article-info info-on-right">
-          
+import math
+
+class KNN:    
+    def __init__(self,trainData,trainLabel,k):
+        self.trainData = trainData
+        self.trainLabel = trainLabel
+        self.k = k       
+
+    def predict(self,inputPoint):
+        retLable = &quot;None&quot;
+        arr=[]
+        for vector,lable in zip(self.trainData,self.trainLabel):
+            s = 0
+            for i,n in enumerate(vector) :
+                s += (n-inputPoint[i]) ** 2
+            arr.append([math.sqrt(s),lable])
+        arr = sorted(arr,key=lambda x:x[0])[:self.k]           
+        dtmp = {}
+        for k,v in arr :
+            if not v in dtmp : dtmp[v]=0
+            dtmp[v] += 1
+        retLable,_ = sorted(dtmp.items(),key=lambda x:x[1],reverse=True)[0]        
+        return retLable
+
+data = [
+    [1.0, 1.1],
+    [1.0, 1.0],
+    [0.0, 0.0],
+    [0.0, 0.1],
+    [1.3, 1.1],
+]
+
+labels = [&apos;A&apos;,&apos;A&apos;,&apos;B&apos;,&apos;B&apos;,&apos;A&apos;]
+knn = KNN(data,labels,3)
+
+print knn.predict([1.2, 1.1])  
+print knn.predict([0.2, 0.1])  
+</code></pre><p>上面的实现比较简单，在开发中可以使用现成的库，比如scikit-learn ：</p>
+<p><a href="https://github.com/mike-zhang/pyExamples/blob/master/algorithm/dataMining_KNN/knn_sklearn_test1.py" target="_blank" rel="noopener">https://github.com/mike-zhang/pyExamples/blob/master/algorithm/dataMining_KNN/knn_sklearn_test1.py</a></p>
+<h2 id="算法应用"><a href="#算法应用" class="headerlink" title="算法应用"></a>算法应用</h2><ul>
+<li>识别手写数字</li>
+</ul>
+<p><a href="http://www.cnblogs.com/chenbjin/p/3869745.html" target="_blank" rel="noopener">http://www.cnblogs.com/chenbjin/p/3869745.html</a></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -275,201 +296,128 @@
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/12/20/希望之花/" class="archive-article-date">
-  	<time datetime="2018-12-20T02:02:07.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-12-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/12/20/希望之花/">希望之花</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">杂感</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/01/14/knn算法笔记/" alt="微信分享二维码">
+    </div>
+</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/29/目标检测经典论文详解文章/" class="archive-article-date">
-  	<time datetime="2018-10-29T15:15:24.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-29</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2019/02/14/CART/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          CART算法理论与slearn决策树类库
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/12/20/希望之花/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">希望之花</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/29/目标检测经典论文详解文章/">目标检测经典论文详解文章</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文章</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">目标检测</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">教程集合</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#主要因素"><span class="toc-number">1.</span> <span class="toc-text">主要因素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#训练集（或样本数据）"><span class="toc-number">1.1.</span> <span class="toc-text">训练集（或样本数据）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#距离（或相似的衡量算法）"><span class="toc-number">1.2.</span> <span class="toc-text">距离（或相似的衡量算法）</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#k的大小"><span class="toc-number">1.3.</span> <span class="toc-text">k的大小</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#优缺点"><span class="toc-number">2.</span> <span class="toc-text">优缺点</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#适用范围"><span class="toc-number">3.</span> <span class="toc-text">适用范围</span></a></li></ol><li class="toc-item toc-level-2"><a class="toc-link" href="#算法实现"><span class="toc-number"></span> <span class="toc-text">算法实现</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#算法应用"><span class="toc-number"></span> <span class="toc-text">算法应用</span></a>
+                    </li></div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/18/Fast-RCNN论文笔记/" class="archive-article-date">
-  	<time datetime="2018-10-18T07:28:33.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-18</time>
-</a>
-        </div>
-    	 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/18/Fast-RCNN论文笔记/">Fast R-CNN 论文笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文章</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">深度学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">论文笔记</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/10/06/R-CNN论文笔记/" class="archive-article-date">
-  	<time datetime="2018-10-06T06:20:47.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/10/06/R-CNN论文笔记/">R-CNN论文笔记</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文章</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">目标检测</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
   
 
-    
+  
 
 
           </div>
@@ -492,8 +440,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
