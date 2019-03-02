@@ -218,145 +218,6 @@
 
 
   
-    <article id="post-pytorch_learnnotbook" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/25/pytorch_learnnotbook/">pytorch搭建简单网络并用实际数据训练</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/25/pytorch_learnnotbook/" class="archive-article-date">
-  	<time datetime="2019-02-25T01:50:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> torch <span class="keyword">import</span> nn</span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> torch.nn.functional <span class="keyword">as</span> F</span><br><span class="line"><span class="keyword">from</span> torch.autograd <span class="keyword">import</span> Variable</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> KFold</span><br></pre></td></tr></table></figure>
-<h3 id="数据预处理"><a href="#数据预处理" class="headerlink" title="数据预处理"></a>数据预处理</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">total_data = pd.read_csv(<span class="string">'./numerical_total_data.csv'</span>, encoding = <span class="string">'gbk'</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 去除共线变量 </span></span><br><span class="line">corr = (total_data.corr() &gt; <span class="number">0.95</span>)</span><br><span class="line">dic = &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(corr.columns)):</span><br><span class="line">    <span class="string">'''生成共线变量字典'''</span></span><br><span class="line">    col = corr.columns[i]</span><br><span class="line">    dic[col] = np.array(corr.columns[corr.iloc[i]])</span><br><span class="line"></span><br><span class="line">noncollinear = set(total_data.columns)\</span><br><span class="line">        - set(dic[<span class="string">'level_0'</span>]) - set(dic[<span class="string">'LinkID'</span>]) - set(dic[<span class="string">'ObjectID'</span>]) - set(dic[<span class="string">'物料编码'</span>]) - set(dic[<span class="string">'pro_start_clock'</span>]) - set(dic[<span class="string">'下线数量'</span>])\</span><br><span class="line">        | set((<span class="string">'level_0'</span>, <span class="string">'LinkID'</span>, <span class="string">'ObjectID'</span>, <span class="string">'物料编码'</span>, <span class="string">'pro_start_clock'</span>, <span class="string">'下线数量'</span>))</span><br><span class="line">noncollinear_data = pd.DataFrame(total_data, columns = noncollinear)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">noncollinear_data.to_csv(<span class="string">'./noncolinear_data.csv'</span>, encoding = <span class="string">'gbk'</span>, index = <span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 变量归一化</span></span><br><span class="line"><span class="keyword">import</span> math</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">sigmoid</span><span class="params">(x)</span>:</span></span><br><span class="line">    <span class="keyword">return</span> <span class="number">1</span> / (<span class="number">1</span> + math.exp(-x))</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">sigmoid_norm_noncllinear_data = noncollinear_data.copy()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(noncollinear_data.shape[<span class="number">1</span>]):</span><br><span class="line">    col = noncollinear_data.columns[i]</span><br><span class="line">    <span class="keyword">if</span> max(noncollinear_data[col]) &gt; <span class="number">10</span>:</span><br><span class="line">        sigmoid_norm_noncllinear_data[col] = noncollinear_data[col].apply(sigmoid)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sigmoid_norm_noncllinear_data.dropna().to_csv(<span class="string">'./sigmoid_norm_noncllinear_data.csv'</span>, encoding = <span class="string">'gbk'</span>, index = <span class="keyword">False</span>)</span><br></pre></td></tr></table></figure>
-<h3 id="建模"><a href="#建模" class="headerlink" title="建模"></a>建模</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data = pd.read_csv(<span class="string">'./sigmoid_norm_noncllinear_data.csv'</span>, encoding = <span class="string">'gbk'</span>)</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">traintset = data.iloc[:<span class="number">8000</span>]</span><br><span class="line">testset = data.iloc[<span class="number">7000</span>:]</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义网络结构</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyNet</span><span class="params">(nn.Module)</span>:</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span><span class="params">(self)</span>:</span></span><br><span class="line">        super(MyNet, self).__init__() <span class="comment">#调用父类的初始化函数</span></span><br><span class="line">        self.hidden = nn.Linear(<span class="number">82</span>, <span class="number">200</span>)</span><br><span class="line">        self.predict = nn.Linear(<span class="number">200</span>, <span class="number">4</span>)</span><br><span class="line">        </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">forward</span><span class="params">(self, x)</span>:</span></span><br><span class="line">        x = F.relu(self.hidden(x)) <span class="comment"># 隐层</span></span><br><span class="line">        x = self.predict(x) <span class="comment"># 输出分类</span></span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line">net = MyNet()</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 训练数据集</span></span><br><span class="line">x = trainset.drop([<span class="string">'level'</span>], axis = <span class="number">1</span>)</span><br><span class="line">x = Variable(torch.from_numpy(np.array(x)).float())</span><br><span class="line">y = trainset[<span class="string">'level'</span>]</span><br><span class="line">y = Variable(torch.from_numpy(np.array(y)).long())</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 定义损失函数和优化器</span></span><br><span class="line">optimizer = torch.optim.SGD(net.parameters(), lr = <span class="number">0.12</span>)</span><br><span class="line">loss_func = nn.CrossEntropyLoss()</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 搭建训练框架</span></span><br><span class="line"><span class="keyword">for</span> t <span class="keyword">in</span> range(<span class="number">10000</span>):</span><br><span class="line">    <span class="comment"># 前向传播</span></span><br><span class="line">    out = net(x)</span><br><span class="line">    loss = loss_func(out, y)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 反向传播</span></span><br><span class="line">    optimizer.zero_grad()</span><br><span class="line">    loss.backward()</span><br><span class="line">    optimizer.step()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> t % <span class="number">2</span> == <span class="number">0</span>:</span><br><span class="line">        prediction = torch.max(out, <span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">        pred_y = prediction.data.numpy().squeeze()</span><br><span class="line">        target_y = y.data.numpy()</span><br><span class="line">        accuracy = sum(pred_y == target_y)/len(trainset)</span><br><span class="line">    <span class="keyword">if</span> t % <span class="number">250</span> == <span class="number">0</span>:</span><br><span class="line">        print(<span class="string">'iteration:'</span>, t, <span class="string">'loss:'</span>, loss.data, <span class="string">'accuracy:'</span>, accuracy)</span><br></pre></td></tr></table></figure>
-<pre><code>iteration: 0 loss: tensor(1.3641) accuracy: 0.275634517766
-iteration: 250 loss: tensor(0.5192) accuracy: 0.837563451777
-iteration: 500 loss: tensor(0.5034) accuracy: 0.842639593909
-iteration: 750 loss: tensor(0.4915) accuracy: 0.842639593909
-iteration: 1000 loss: tensor(0.4819) accuracy: 0.848223350254
-iteration: 1250 loss: tensor(0.4736) accuracy: 0.851776649746
-iteration: 1500 loss: tensor(0.4667) accuracy: 0.855329949239
-iteration: 1750 loss: tensor(0.4634) accuracy: 0.857360406091
-iteration: 2000 loss: tensor(0.4618) accuracy: 0.858883248731
-iteration: 2250 loss: tensor(0.4580) accuracy: 0.859898477157
-iteration: 2500 loss: tensor(0.4547) accuracy: 0.861421319797
-iteration: 2750 loss: tensor(0.4515) accuracy: 0.866497461929
-iteration: 3000 loss: tensor(0.4485) accuracy: 0.868020304569
-iteration: 3250 loss: tensor(0.4455) accuracy: 0.868020304569
-iteration: 3500 loss: tensor(0.4428) accuracy: 0.868020304569
-iteration: 3750 loss: tensor(0.4408) accuracy: 0.867512690355
-iteration: 4000 loss: tensor(0.4385) accuracy: 0.867512690355
-iteration: 4250 loss: tensor(0.4363) accuracy: 0.869035532995
-iteration: 4500 loss: tensor(0.4349) accuracy: 0.869543147208
-iteration: 4750 loss: tensor(0.4329) accuracy: 0.869543147208
-iteration: 5000 loss: tensor(0.4315) accuracy: 0.870558375635
-iteration: 5250 loss: tensor(0.4306) accuracy: 0.871065989848
-iteration: 5500 loss: tensor(0.4288) accuracy: 0.871573604061
-iteration: 5750 loss: tensor(0.4273) accuracy: 0.871573604061
-iteration: 6000 loss: tensor(0.4260) accuracy: 0.873096446701
-iteration: 6250 loss: tensor(0.4248) accuracy: 0.873096446701
-iteration: 6500 loss: tensor(0.4236) accuracy: 0.873096446701
-iteration: 6750 loss: tensor(0.4223) accuracy: 0.87461928934
-iteration: 7000 loss: tensor(0.4211) accuracy: 0.87461928934
-iteration: 7250 loss: tensor(0.4198) accuracy: 0.87461928934
-iteration: 7500 loss: tensor(0.4191) accuracy: 0.87461928934
-iteration: 7750 loss: tensor(0.4181) accuracy: 0.875126903553
-iteration: 8000 loss: tensor(0.4174) accuracy: 0.875126903553
-iteration: 8250 loss: tensor(0.4165) accuracy: 0.87614213198
-iteration: 8500 loss: tensor(0.4157) accuracy: 0.87614213198
-iteration: 8750 loss: tensor(0.4151) accuracy: 0.87614213198
-iteration: 9000 loss: tensor(0.4148) accuracy: 0.87614213198
-iteration: 9250 loss: tensor(0.4132) accuracy: 0.87614213198
-iteration: 9500 loss: tensor(0.4131) accuracy: 0.87614213198
-iteration: 9750 loss: tensor(0.4122) accuracy: 0.87614213198
-</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## 训练数据集</span></span><br><span class="line">test_x = testset[testset[<span class="string">'level'</span>] != <span class="number">0</span>].drop([<span class="string">'level'</span>], axis = <span class="number">1</span>)</span><br><span class="line">test_x = Variable(torch.from_numpy(np.array(test_x)).float())</span><br><span class="line">test_y = testset[<span class="string">'level'</span>][testset[<span class="string">'level'</span>] != <span class="number">0</span>]</span><br><span class="line">test_y = Variable(torch.from_numpy(np.array(test_y)).long())</span><br></pre></td></tr></table></figure>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 测试偏斜数据</span></span><br><span class="line">out = net(test_x)</span><br><span class="line">print(len(test_x))</span><br><span class="line">prediction = torch.max(out, <span class="number">1</span>)[<span class="number">1</span>]</span><br><span class="line">pred_y = prediction.data.numpy().squeeze()</span><br><span class="line">target_y = test_y.data.numpy()</span><br><span class="line">accuracy = sum(pred_y == target_y)/len(testset)</span><br><span class="line">print(<span class="string">'accuracy:'</span>, accuracy)</span><br></pre></td></tr></table></figure>
-<pre><code>698
-accuracy: 0.117171717172
-</code></pre><h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>x数据类型为float y数据类型为long</li>
-<li>对不平衡的数据效果不好</li>
-<li>模型保存：torch.save(model, path) torch.load(path)后缀为pkl</li>
-<li>训练时loss为NaN，首先检查数据中是否有NaN</li>
-</ol>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文章</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pytorch</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">jupyter</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
     <article id="post-ML-W2" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -402,6 +263,91 @@ accuracy: 0.117171717172
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-pytorch_learnnotbook" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/02/25/pytorch_learnnotbook/">pytorch搭建简单网络并用实际数据训练</a>
+    </h1>
+  
+
+        
+        <a href="/2019/02/25/pytorch_learnnotbook/" class="archive-article-date">
+  	<time datetime="2019-02-25T01:50:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-25</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>x数据类型为float y数据类型为long</li>
+<li>对不平衡的数据效果不好</li>
+<li>模型保存：torch.save(model, path) torch.load(path)后缀为pkl</li>
+<li>训练时loss为NaN，首先检查数据中是否有NaN</li>
+</ol>
+        
+          <a class="article-more-a" href="/2019/02/25/pytorch_learnnotbook/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文章</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pytorch</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">jupyter</a>
         		</li>
       		
 		</ul>
