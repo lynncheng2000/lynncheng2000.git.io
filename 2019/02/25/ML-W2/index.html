@@ -8,18 +8,18 @@
   <link rel="dns-prefetch" href="http://yoursite.com">
   <title>corseraML笔记(W2) | LynnCheng&#39;s Blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="多元线性回归定义：自变量有多于一个的特征变量 与单变量线性回归的区别：梯度下降算法的计算公式更新为更一般的形式使用梯度下降时要注意feature scaling问题 feature scaling问题描述：当有多个特征时，若不同的特征的取值范围有很大的不同，会导致轮廓图的偏斜和梯度下降收敛变慢解决方案：normalization(mean normalization/max normalizati">
+  <meta name="description" content="线性回归">
 <meta name="keywords" content="文章,机器学习">
 <meta property="og:type" content="article">
 <meta property="og:title" content="corseraML笔记(W2)">
 <meta property="og:url" content="http://yoursite.com/2019/02/25/ML-W2/index.html">
 <meta property="og:site_name" content="LynnCheng&#39;s Blog">
-<meta property="og:description" content="多元线性回归定义：自变量有多于一个的特征变量 与单变量线性回归的区别：梯度下降算法的计算公式更新为更一般的形式使用梯度下降时要注意feature scaling问题 feature scaling问题描述：当有多个特征时，若不同的特征的取值范围有很大的不同，会导致轮廓图的偏斜和梯度下降收敛变慢解决方案：normalization(mean normalization/max normalizati">
+<meta property="og:description" content="线性回归">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-02-25T15:52:58.173Z">
+<meta property="og:updated_time" content="2019-03-02T14:40:52.973Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="corseraML笔记(W2)">
-<meta name="twitter:description" content="多元线性回归定义：自变量有多于一个的特征变量 与单变量线性回归的区别：梯度下降算法的计算公式更新为更一般的形式使用梯度下降时要注意feature scaling问题 feature scaling问题描述：当有多个特征时，若不同的特征的取值范围有很大的不同，会导致轮廓图的偏斜和梯度下降收敛变慢解决方案：normalization(mean normalization/max normalizati">
+<meta name="twitter:description" content="线性回归">
   
     <link rel="alternative" href="/atom.xml" title="LynnCheng&#39;s Blog" type="application/atom+xml">
   
@@ -167,7 +167,9 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h2><p>定义：自变量有多于一个的特征变量</p>
+        <p>线性回归</p>
+<a id="more"></a>
+<h2 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h2><p>定义：自变量有多于一个的特征变量</p>
 <p>与单变量线性回归的区别：<br>梯度下降算法的计算公式更新为更一般的形式<br>使用梯度下降时要注意feature scaling问题</p>
 <h4 id="feature-scaling"><a href="#feature-scaling" class="headerlink" title="feature scaling"></a>feature scaling</h4><p>问题描述：当有多个特征时，若不同的特征的取值范围有很大的不同，会导致轮廓图的偏斜和梯度下降收敛变慢<br>解决方案：normalization(mean normalization/max normalization) 方法不限，只要将特征放缩到一个差不多的范围内就可以了</p>
 <h2 id="学习率α的选择"><a href="#学习率α的选择" class="headerlink" title="学习率α的选择"></a>学习率α的选择</h2><p>α过大：不收敛<br>α过小：收敛过慢、容易陷入局部最小值<br>解决方案：尝试不同的学习率，从中选择表现最好的一个</p>
@@ -271,8 +273,8 @@
     </a>
   
   
-    <a href="/2019/02/25/pytorch_learnnotbook/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">pytorch搭建简单网络并用实际数据训练</div>
+    <a href="/2019/02/23/ML笔记-W1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">courseraML笔记(W1)</div>
       <i class="icon-circle-right"></i>
     </a>
   

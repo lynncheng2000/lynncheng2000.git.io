@@ -144,6 +144,91 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-pytorch_learnnotbook" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/03/02/pytorch_learnnotbook/">pytorch搭建简单网络并用实际数据训练</a>
+    </h1>
+  
+
+        
+        <a href="/2019/03/02/pytorch_learnnotbook/" class="archive-article-date">
+  	<time datetime="2019-03-02T14:50:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-03-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
+<li>x数据类型为float y数据类型为long</li>
+<li>对不平衡的数据效果不好</li>
+<li>模型保存：torch.save(model, path) torch.load(path)后缀为pkl</li>
+<li>训练时loss为NaN，首先检查数据中是否有NaN</li>
+</ol>
+        
+          <a class="article-more-a" href="/2019/03/02/pytorch_learnnotbook/#more">more >></a>
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文章</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pytorch</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">jupyter</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-《檀香刑》" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -164,8 +249,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>仿佛一个嗓音嘶哑的人在高声朗诵，在他的周围围绕着听众<br>作者有意地大量使用了韵文，有意地使用了戏剧化的叙事手段，制造出了流畅、浅显、夸张、华丽的叙事效果<br>在作者原本的构思中，存有大量的有关火车和铁路的神奇传说，但最后减弱了，突出了猫腔的气息，保持了比较多的民间气息的中国风格。就像猫腔只能在广场上为劳苦大众演出一样，这部小说也只能被对民间文化持比较亲和态度的读者阅读</p>
-
+        <hr>
+        
+          <a class="article-more-a" href="/2019/02/25/《檀香刑》/#more">more >></a>
+        
       
 
       
@@ -238,14 +325,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="多元线性回归"><a href="#多元线性回归" class="headerlink" title="多元线性回归"></a>多元线性回归</h2><p>定义：自变量有多于一个的特征变量</p>
-<p>与单变量线性回归的区别：<br>梯度下降算法的计算公式更新为更一般的形式<br>使用梯度下降时要注意feature scaling问题</p>
-<h4 id="feature-scaling"><a href="#feature-scaling" class="headerlink" title="feature scaling"></a>feature scaling</h4><p>问题描述：当有多个特征时，若不同的特征的取值范围有很大的不同，会导致轮廓图的偏斜和梯度下降收敛变慢<br>解决方案：normalization(mean normalization/max normalization) 方法不限，只要将特征放缩到一个差不多的范围内就可以了</p>
-<h2 id="学习率α的选择"><a href="#学习率α的选择" class="headerlink" title="学习率α的选择"></a>学习率α的选择</h2><p>α过大：不收敛<br>α过小：收敛过慢、容易陷入局部最小值<br>解决方案：尝试不同的学习率，从中选择表现最好的一个</p>
-<h2 id="多项式回归"><a href="#多项式回归" class="headerlink" title="多项式回归"></a>多项式回归</h2><p>将变量的高次作为一个新的特征加入线性模型<br>应注意feature scaling的问题</p>
-<h2 id="正规方程"><a href="#正规方程" class="headerlink" title="正规方程"></a>正规方程</h2><p>线性回归有解析解<br>不用选择学习率、但当特征数多于样本量或样本矩阵线性相关时，会导致X’X的不可逆，解决方案是筛去不必要的特征<br>而且正规方程的计算复杂度为O(n3),梯度下降计算复杂度为O(kn2)，当特征数过大（例如大于10000）仍然选择梯度下降算法计算参数的极小值</p>
-<h2 id="octave基础教程"><a href="#octave基础教程" class="headerlink" title="octave基础教程"></a>octave基础教程</h2><p><a href="https://zhuanlan.zhihu.com/p/40189570" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/40189570</a></p>
-
+        <p>线性回归</p>
+        
+          <a class="article-more-a" href="/2019/02/25/ML-W2/#more">more >></a>
+        
       
 
       
@@ -263,91 +346,6 @@
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-pytorch_learnnotbook" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/02/25/pytorch_learnnotbook/">pytorch搭建简单网络并用实际数据训练</a>
-    </h1>
-  
-
-        
-        <a href="/2019/02/25/pytorch_learnnotbook/" class="archive-article-date">
-  	<time datetime="2019-02-25T01:50:15.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-02-25</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><ol>
-<li>x数据类型为float y数据类型为long</li>
-<li>对不平衡的数据效果不好</li>
-<li>模型保存：torch.save(model, path) torch.load(path)后缀为pkl</li>
-<li>训练时loss为NaN，首先检查数据中是否有NaN</li>
-</ol>
-        
-          <a class="article-more-a" href="/2019/02/25/pytorch_learnnotbook/#more">more >></a>
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">文章</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">pytorch</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">jupyter</a>
         		</li>
       		
 		</ul>
@@ -658,15 +656,15 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">决策树</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
         			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">sklearn</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">机器学习</a>
         		</li>
       		
 		</ul>
